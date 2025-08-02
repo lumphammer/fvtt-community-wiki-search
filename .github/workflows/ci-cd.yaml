@@ -1,0 +1,91 @@
+name: CI/CD
+
+on:
+  push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Activate pnpm
+        run: |
+          corepack enable
+
+      - name: Instrumentation
+        run: |
+          pwd
+          ls -l
+          cat tsconfig.json
+          export
+          node --version
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Instrument tsc version
+        run: npx tsc --version
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Check for sensitive content
+        run: |
+          # gh runs these with set -e by default but we want to handle the exit
+          # code ourselves
+          set +e
+          # see src/content/metacontent.md for these strings
+          grep -r -i -E 'az5l4PI7rXLjEEBI1W3fc|PaBH_L7GJZnkjpV87HHV7' dist/
+          if [ $? -eq 0 ]; then
+            echo "Sensitive content found in dist folder"
+            exit 1
+          fi
+
+      - name: Upload static files as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: dist/
+          name: dist
+
+
+  # we deploy in a separate job to ensure that we absolutely cannot accidentally
+  # send sensitive data from the source code to the public site (note that
+  # there is no `checkout` step in this job).
+  deploy:
+    runs-on: ubuntu-latest
+    # only if branch is main
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      deployments: write
+    name: Publish to Cloudflare Pages
+    needs: build
+    steps:
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+
+      - name: Instrument folder
+        run: |
+          echo pwd
+          pwd
+          echo ls -l
+          ls -l
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+          directory: .
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
