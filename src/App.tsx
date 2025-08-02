@@ -132,6 +132,12 @@ export default function App() {
               Search Wiki
             </button>
           </form>
+          <aside
+            className="text-primary-500 mt-6 text-center text-sm
+              dark:text-stone-500"
+          >
+            (Not affiliated with Foundry VTT or the Foundry VTT Community Wiki.)
+          </aside>
         </div>
       </div>
     </div>
