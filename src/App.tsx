@@ -136,7 +136,16 @@ export default function App() {
             className="text-primary-500 mt-6 text-center text-sm
               dark:text-stone-500"
           >
-            (Not affiliated with Foundry VTT or the Foundry VTT Community Wiki.)
+            (Not affiliated with Foundry VTT or the Foundry VTT Community Wiki.){" "}
+            <a
+              href="https://github.com/lumphammer/fvtt-community-wiki-search"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-red-600 underline hover:text-red-500
+                dark:text-red-500 dark:hover:text-red-400"
+            >
+              GitHub
+            </a>
           </aside>
         </div>
       </div>
