@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  .font-blackletter {
+    font-family: "Pirata One", ui-serif, serif;
+  }
+}
+
+@theme {
+  --color-primary-50: oklch(98.7% 0.026 102.21);
+  --color-primary-100: oklch(96.806% 0.05764 100.39);
+  --color-primary-200: oklch(93.512% 0.10229 98.566);
+  --color-primary-300: oklch(89.017% 0.14193 96.743);
+  --color-primary-400: oklch(83.223% 0.14558 94.92);
+  --color-primary-500: oklch(77.029% 0.11722 93.097);
+  --color-primary-600: oklch(65.135% 0.08186 91.273);
+  --color-primary-700: oklch(53.176% 0.0749 81.881);
+  --color-primary-800: oklch(46.117% 0.07393 77.346);
+  --color-primary-900: oklch(41.359% 0.07497 73.147);
+  --color-primary-950: oklch(28.6% 0.066 69.252);
+}
+
+/* Custom app colors */
+:root {
+  --color-light: #ffffff;
+  --color-dark: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-light: #111827;
+    --color-dark: #f9fafb;
+  }
+}
+
+.accent-text {
+  @apply text-slate-600;
+}
+
+body {
+  font-family: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--color-dark);
+  background: var(--color-light);
+}
+
+/* only use this to update the style of the auth input fields. use a different class for all other input fields */
+.auth-input-field {
+  @apply w-full rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-sm transition-shadow outline-none hover:shadow-md focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600;
+}
+
+/* only use this to update the style of the auth buttons. use the button class for all other buttons */
+.auth-button {
+  @apply w-full rounded-lg bg-indigo-600 px-4 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50;
+}
