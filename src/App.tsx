@@ -39,7 +39,7 @@ export default function App() {
     const encodedSearchTerm = encodeURIComponent(searchTerm.trim());
     const searchUrl = `https://duckduckgo.com/?q=site%3Ahttps%3A%2F%2Ffoundryvtt.wiki+%22${encodedSearchTerm}%22`;
 
-    window.open(searchUrl, "_blank");
+    window.open(searchUrl, "_self");
   };
 
   const ThemeToggle = () => (
@@ -98,9 +98,7 @@ export default function App() {
               </a>
             </h2>
           </div>
-          <p className="my-6 text-center">
-            Opens search results in DuckDuckGo in a new tab
-          </p>
+          <p className="my-6 text-center">Opens search results in DuckDuckGo</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
