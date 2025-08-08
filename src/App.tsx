@@ -124,10 +124,11 @@ export default function App() {
               type="submit"
               disabled={!searchTerm.trim()}
               className="hover:bg-primary-800 disabled:hover:bg-primary-700
-                w-full rounded-lg bg-red-700 px-4 py-3 font-semibold text-white
-                shadow-sm transition-colors hover:shadow
-                disabled:cursor-not-allowed disabled:opacity-50 dark:bg-red-700
-                dark:hover:bg-red-800 dark:disabled:hover:bg-red-700"
+                w-full cursor-pointer rounded-lg bg-red-700 px-4 py-3
+                font-semibold text-white shadow-sm transition-colors
+                hover:shadow disabled:cursor-not-allowed disabled:opacity-50
+                dark:bg-red-700 dark:hover:bg-red-800
+                dark:disabled:hover:bg-red-700"
             >
               Search Wiki
             </button>
