@@ -10,13 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
-      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: true
+
+      - uses: actions/setup-node@v5
         with:
           node-version-file: '.nvmrc'
-
-      - name: Activate pnpm
-        run: |
-          corepack enable
 
       - name: Instrumentation
         run: |
@@ -26,12 +26,7 @@ jobs:
           export
           node --version
           pnpm --version
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Instrument tsc version
-        run: npx tsc --version
+          npx tsc --version
 
       - name: Build
         run: pnpm run build
