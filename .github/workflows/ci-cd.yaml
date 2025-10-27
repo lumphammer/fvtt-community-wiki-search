@@ -44,7 +44,7 @@ jobs:
           fi
 
       - name: Upload static files as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           path: dist/
           name: dist
@@ -65,7 +65,7 @@ jobs:
     steps:
 
       - name: Download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: dist
 
