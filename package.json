@@ -16,18 +16,18 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@eslint/js": "^9.38.0",
+    "@eslint/js": "^9.39.0",
     "@fontsource/geist-sans": "^5.2.5",
     "@fontsource/pirata-one": "^5.2.8",
     "@tailwindcss/vite": "^4.1.16",
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react-oxc": "^0.4.2",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.4.0",
+    "globals": "^16.5.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-classnames": "^0.8.5",
@@ -38,7 +38,7 @@
     "tailwindcss": "^4.1.16",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.2",
-    "vite": "npm:rolldown-vite@^7.1.19"
+    "vite": "npm:rolldown-vite@^7.1.20"
   },
   "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748"
 }
