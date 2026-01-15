@@ -1,7 +1,6 @@
 name: CI/CD
 
-on:
-  push
+on: push
 
 jobs:
   build:
@@ -16,7 +15,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Instrumentation
         run: |
@@ -48,11 +47,14 @@ jobs:
         with:
           path: dist/
           name: dist
+          include-hidden-files: true # needed to ensure .assetsignore is sent
 
+      - name: Upload wrangler.jsonc
+        uses: actions/upload-artifact@v6
+        with:
+          path: wrangler.jsonc
+          name: wrangler.jsonc
 
-  # we deploy in a separate job to ensure that we absolutely cannot accidentally
-  # send sensitive data from the source code to the public site (note that
-  # there is no `checkout` step in this job).
   deploy:
     runs-on: ubuntu-latest
     # only if branch is main
@@ -63,24 +65,38 @@ jobs:
     name: Publish to Cloudflare Pages
     needs: build
     steps:
-
-      - name: Download artifact
+      - name: Download dist
         uses: actions/download-artifact@v7
         with:
           name: dist
+          path: dist
+
+      - name: Download wrangler.jsonc
+        uses: actions/download-artifact@v7
+        with:
+          name: wrangler.jsonc
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      # force the wrangler version be preinstalling it
+      # https://github.com/cloudflare/wrangler-action/issues/390
+      - name: Install wrangler
+        run: pnpm add wrangler@4
 
       - name: Instrument folder
         run: |
-          echo pwd
           pwd
-          echo ls -l
-          ls -l
+          echo "ls -la"
+          ls -la
+          echo "ls -la dist/"
+          ls -la dist/
+          echo "cat dist/.assetsignore"
+          cat dist/.assetsignore
 
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@1
+      - name: Publish to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: .
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
