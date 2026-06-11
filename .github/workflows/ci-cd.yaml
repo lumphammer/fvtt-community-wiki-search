@@ -76,15 +76,6 @@ jobs:
         with:
           name: wrangler.jsonc
 
-      - uses: pnpm/action-setup@v6
-        with:
-          version: latest
-
-      # force the wrangler version be preinstalling it
-      # https://github.com/cloudflare/wrangler-action/issues/390
-      - name: Install wrangler
-        run: pnpm add wrangler@4
-
       - name: Instrument folder
         run: |
           pwd
@@ -98,5 +89,6 @@ jobs:
       - name: Publish to Cloudflare Workers
         uses: cloudflare/wrangler-action@v4
         with:
+          wranglerVersion: 4
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
