@@ -25,7 +25,7 @@ jobs:
           export
           node --version
           pnpm --version
-          npx tsc --version
+          pnpm exec tsc --version
 
       - name: Build
         run: pnpm run build
