@@ -16,7 +16,7 @@
     "start": "vite preview --port 3000"
   },
   "dependencies": {
-    "@cloudflare/vite-plugin": "^1.42.1",
+    "@cloudflare/vite-plugin": "^1.42.3",
     "@eslint/js": "^10.0.1",
     "@fontsource/geist-sans": "^5.2.5",
     "@fontsource/pirata-one": "^5.2.8",
@@ -25,22 +25,22 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-oxc": "^0.4.3",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
-    "globals": "^17.6.0",
+    "globals": "^17.7.0",
     "postcss": "^8.5.15",
-    "prettier": "^3.8.4",
-    "prettier-plugin-classnames": "^0.10.2",
+    "prettier": "^3.9.1",
+    "prettier-plugin-classnames": "^0.10.3",
     "prettier-plugin-merge": "^0.10.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.1",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.61.1",
+    "typescript-eslint": "^8.62.0",
     "vite": "npm:rolldown-vite@^7.3.1",
-    "wrangler": "^4.103.0"
+    "wrangler": "^4.105.0"
   },
   "devEngines": {
     "packageManager": {
