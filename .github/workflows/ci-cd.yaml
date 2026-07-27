@@ -27,6 +27,17 @@ jobs:
           pnpm --version
           pnpm exec tsc --version
 
+      # pnpm lint:check && pnpm format:check && pnpm typecheck
+
+      - name: Lint
+        run: pnpm run lint:check
+
+      - name: Format
+        run: pnpm run format:check
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
       - name: Build
         run: pnpm run build
 
