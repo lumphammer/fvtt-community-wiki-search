@@ -1,17 +1,12 @@
-import { useState, FormEvent, useEffect } from "react";
-
-type Theme = "light" | "dark" | "system";
+import { useState, SubmitEvent, useEffect } from "react";
+import { ensureTheme, Theme } from "./types";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [theme, setTheme] = useState<Theme>("system");
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
+  const [theme, setTheme] = useState<Theme>(
+    ensureTheme(localStorage.getItem("theme") as Theme),
+  );
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -29,7 +24,7 @@ export default function App() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
 
     if (!searchTerm.trim()) {
@@ -42,42 +37,12 @@ export default function App() {
     window.open(searchUrl, "_self");
   };
 
-  const ThemeToggle = () => (
-    <div className="absolute top-4 right-4">
-      <div
-        className="border-primary-200 bg-primary-50 flex rounded-lg border p-1
-          shadow-md dark:border-stone-500 dark:bg-stone-700"
-      >
-        {(["light", "dark", "system"] as const).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTheme(t)}
-            className={`cursor-pointer rounded-md border-1 px-3 py-1 text-sm
-            font-medium transition-colors ${
-              theme === t
-                ? "border-red-500/70 dark:bg-stone-800"
-                : `text-primary-800 hover:bg-primary-200 border-transparent
-                  dark:hover:bg-stone-400`
-            }`}
-          >
-            <span className="sr-only">
-              Switch to {t.charAt(0).toUpperCase() + t.slice(1)} Theme
-            </span>
-            {t === "light" && "☀️"}
-            {t === "dark" && "🌙"}
-            {t === "system" && "💻"}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-
   return (
     <div
       className="bg-primary-100 relative flex min-h-screen items-center
         justify-center p-8 dark:bg-stone-900"
     >
-      <ThemeToggle />
+      <ThemeToggle onSetTheme={setTheme} theme={theme} />
       <div className="mx-auto w-full max-w-3xl">
         <div
           className="bg-primary-50 text-primary-700 rounded-lg border-t-2
